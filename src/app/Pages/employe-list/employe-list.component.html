@@ -1,0 +1,46 @@
+<div class="container m-5">
+    <div class="card">
+        <div class="card-header">
+            <form (ngSubmit)="searchEmployeByName()" class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="searchName" name="searchName" placeholder="reacherche"
+                    aria-label="Recherch par nom d'employe">
+                <button class="btn btn-primary" type="submit"    id="search-button">Recherch</button>
+                <button class="btn btn-danger" (click)="getAllEmployes()">annuler la recherche</button>
+            </form>
+        </div>
+        <div class="card-body ">
+            <a routerLink="/employe/create" class="btn btn-primary d-block"> Cree Employe</a>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#id</th>
+                        <th scope="col">Nom Complet</th>
+                        <th scope="col">Post</th>
+                        <th scope="col">Salaire</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employe of employes" class="c">
+                        <th scope="row"><a routerLink="/employe/{{employe.idEmploye}}/info">{{employe.idEmploye}}</a>
+                        </th>
+                        <td><a routerLink="/employe/{{employe.idEmploye}}/info">{{employe.nom}}</a></td>
+                        <td>{{employe.post}}</td>
+                        <td>{{employe.salaire}}</td>
+                        <td><a routerLink="/employe/{{employe.idEmploye}}/update" class="btn btn-success">Modifier</a>
+                        </td>
+                        <td><button class="btn btn-danger"
+                                (click)="deleteEmploye($event,employe.idEmploye)">Supprimer</button></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button (click)="previousPage()" class="btn btn-primary float-start" [disabled]="firstPage">&#8249;
+                précédente</button>
+            <button (click)="nextPage()" class="btn btn-primary float-end"
+                [disabled]="lastPage">suivante&#8250;</button>
+        </div>
