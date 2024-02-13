@@ -1,0 +1,76 @@
+<div class="container m-5">
+    <div class="card">
+        <div class="card-header">
+            <form class="input-group d-print-block"
+                (ngSubmit)="searchType === 'statutSearch' ? searchPretByStatut() : (searchType === 'nameSearch' ? searchPretByName():null)">
+
+
+
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="searchStatut"
+                    *ngIf="searchType==='statutSearch'" name="pret.statut">
+                    <option selected value="">selectioner la statut du pret</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+                <input type="text" class="form-control"  [(ngModel)]="searchName" name="searchName"
+                    placeholder="reacherche"  *ngIf="searchType==='nameSearch'">
+                <div class="form-check">
+                    <input class="form-check-input " type="radio" name="searchType" value="statutSearch"
+                        [(ngModel)]="searchType" >
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Recherch Par statuT
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="searchType" value="nameSearch"
+                        [(ngModel)]="searchType"  checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Recherch par nomEmploy
+                    </label>
+                </div>
+                <button class="btn btn-primary" type="submit" id="search-button">Recherch</button>
+                <button class="btn btn-danger" (click)="getAllPrets()">annuler la recherche</button>
+            </form>
+
+        </div>
+        <div class="card-body">
+            <a routerLink="/pret/create" class="btn btn-primary d-block"> Cree pret</a>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Montant(en DA)</th>
+                        <th scope="col">Duree(en Mois)</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Employe</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pret of prets"
+                        [ngClass]="{  'table-success': pret.statut === 'Approved','table-warning': pret.statut === 'Pending','table-danger': pret.statut === 'Rejected'}">
+                        <th scope="row"><a routerLink="/pret/{{pret.id}}/info"> {{pret.id}}</a></th>
+                        <td>{{pret.montant}}</td>
+                        <td>{{pret.dureeEnMois}}</td>
+                        <td>{{pret.statut}}</td>
+                        <td><a routerLink="/employe/{{pret.employe.idEmploye}}/info">{{pret.employe.nom}}</a></td>
+                        <td><a routerLink="/pret/{{pret.id}}/update" class="btn btn-success">Modifier</a></td>
+                        <td><button (click)="deletePretByID($event,pret.id)" class="btn btn-danger">Supprimer</button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <button (click)="previousPage()" class="btn btn-primary float-start" [disabled]="firstPage">&#8249;
+                précédente</button>
+            <button (click)="nextPage()" class="btn btn-primary float-end"
+                [disabled]="lastPage">suivante&#8250;</button>
+        </div>
+    </div>
+</div>

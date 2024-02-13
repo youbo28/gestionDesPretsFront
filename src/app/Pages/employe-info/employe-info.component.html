@@ -1,0 +1,51 @@
+<div class="container m-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Formulaire d'employe</h3>
+
+        </div>
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nom d'employe</label>
+                <h1 class="form-control">{{employe.nom}}</h1>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Salaire</label>
+                <h1 class="form-control">{{employe.salaire}}</h1>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Post</label>
+                <h1 class="form-control">{{employe.post}}</h1>
+
+            </div>
+
+            <a class="btn btn-danger float-start" routerLink="/employe">Retour</a>
+            <a class="btn btn-primary float-end" routerLink="/employe/{{employe.idEmploye}}/update">Modifier</a>
+
+        </div>
+        <div class="card-footer">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Montant(en DA)</th>
+                        <th scope="col">Duree(en Mois)</th>
+                        <th scope="col">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pret of employe.prets"
+                        [ngClass]="{  'table-success': pret.statut === 'Approved','table-warning': pret.statut === 'Pending','table-danger': pret.statut === 'Rejected'}">
+                        <th scope="row"><a routerLink="/pret/{{pret.id}}"> {{pret.id}}</a></th>
+                        <td>{{pret.montant}}</td>
+                        <td>{{pret.dureeEnMois}}</td>
+                        <td>{{pret.statut}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

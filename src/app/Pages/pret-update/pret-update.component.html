@@ -1,0 +1,59 @@
+<div class="container m-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Modifier Pret</h3>
+
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="updatePret()">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Id du employe</label>
+                    <input type="text" class="form-control" [(ngModel)]="employe.idEmploye" (input)="fetchEmployeName()"
+                        name="employe.idEmploye" placeholder="écrire le nom complet d'emloye ici ">
+
+                    <span class="text-danger" *ngIf="errors.error">{{errors.error}}</span>
+                </div>
+                <div class="form-group" *ngIf="employe.nom">
+                    <label for="exampleInputEmail1">Nom du employe</label>
+                    <h1 class="form-control text-bg-success">{{employe.nom}}</h1>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Montant</label>
+                    <input type="number" class="form-control" [(ngModel)]="pret.montant" name="pret.montant"
+                        placeholder="entrer le montant du pret ">
+                    <span class="text-danger" *ngIf="errors.montant">{{errors.montant}}</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">duree(en Mois)</label>
+                    <input type="number" class="form-control" [(ngModel)]="pret.dureeEnMois" name="pret.dureeEnMois"
+                        placeholder="entrer la duree  du pret ">
+                    <span class="text-danger" *ngIf="errors.dureeEnMois">{{errors.dureeEnMois}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Statut</label>
+
+                    <select class="form-select" aria-label="Default select example" [(ngModel)]="pret.statut"
+                        name="pret.statut">
+                        <option selected value="">selectioner la statut du pret</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+
+                    <span class="text-danger" *ngIf="errors.statut">{{errors.statut}}</span>
+                </div>
+
+
+                <a class="btn btn-danger float-start" routerLink="/pret">Retour</a>
+                <button [disabled]="errors.error||employe.nom===''" type="submit"
+                    class="btn btn-primary float-end">valider</button>
+            </form>
+        </div>
+        <div class="card-footer">
+
+
+        </div>
+    </div>
+</div>
